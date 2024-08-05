@@ -1,15 +1,19 @@
 import { Context, createContext, useContext, useState } from "react";
 
-interface UserContextType {
-	userId: number;
-	setUserId: React.Dispatch<React.SetStateAction<number>>;
+type UserContextType = {
+	userId: string | null;
+	setUserId: React.Dispatch<React.SetStateAction<string | null>>;
+}
+
+type UserProviderProps = {
+	children: React.ReactNode;
 }
 
 const UserContext: Context<UserContextType | null> = createContext<UserContextType | null>(null);
 
-export function UserProvider({ children }) {
+export function UserProvider({ children }: UserProviderProps) {
 
-	const [userId, setUserId] = useState(0);
+	const [userId, setUserId] = useState<string | null>(null);
 
 	const value = { userId, setUserId };
 

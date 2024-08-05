@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useUserContext } from "./UserContext";
+import { useUserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 
 const LOG_IN_FAILED_MSG = "Incorrect email or password";
@@ -22,7 +22,7 @@ export default function LogInForm() {
 		const obj = Object.fromEntries(formData.entries());
 
 		try {
-			const response = await fetch('/rest/auth/login', {
+			const response = await fetch('http://localhost:3000/rest/auth/login', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
@@ -40,7 +40,7 @@ export default function LogInForm() {
 				setErrorMsg(LOG_IN_FAILED_MSG);
 			else {
 				setUserId(data.userId);
-				navigate('/chat');
+				navigate('/messages/1');
 			}
 		}
 		catch (error) {

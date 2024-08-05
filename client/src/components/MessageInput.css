@@ -1,0 +1,9 @@
+.chat-input-cont {
+	display: flex;
+	flex: 0;
+	border: 2px solid purple;
+}
+
+.chat-input-fld {
+	flex: 1;
+}

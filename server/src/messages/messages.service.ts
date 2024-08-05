@@ -12,15 +12,26 @@ export class MessagesService {
     @InjectModel(Message.name) private messageModel: Model<Message>,
   ) {}
 
-  async getMessages(chatId: number, timestamp: number): Promise<Message[]> {
+  async getMessages(
+    chatId: number,
+    /*, timestamp: number*/
+  ): Promise<Message[]> {
     return this.messageModel
-      .find({ chatId, createdAt: { $lt: new Date(timestamp) } })
-      .sort({ createdAt: -1 })
+      .find({ chatId })
+      .sort({ createdAt: 1 })
       .limit(this.msgRetrievalLimit);
+    // .find({ chatId, createdAt: { $lt: new Date(timestamp) } })
   }
 
   async addMessage(newMessage: MessageInput): Promise<Message> {
-    const createdMessage = new this.messageModel(newMessage);
+    const dataToSave = {
+      chatId: newMessage.chatId,
+      senderId: newMessage.senderId,
+      content: newMessage.content,
+      createdAt: Date.now(),
+    };
+
+    const createdMessage = new this.messageModel(dataToSave);
     return createdMessage.save();
   }
 }

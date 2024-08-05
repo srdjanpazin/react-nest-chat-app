@@ -6,7 +6,7 @@ export class MessageInput {
   chatId: number;
 
   @Field()
-  senderId: number;
+  senderId: string;
 
   @Field()
   content: string;

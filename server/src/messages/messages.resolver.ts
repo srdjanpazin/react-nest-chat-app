@@ -15,14 +15,14 @@ export class MessagesResolver {
   @Query('messages')
   async getMessages(
     @Args('chatId') chatId: number,
-    @Args('timestamp') timestamp: number,
+    // @Args('timestamp') timestamp: number,
   ) {
-    return await this.messageService.getMessages(chatId, timestamp);
+    return await this.messageService.getMessages(chatId);
   }
 
-  @Mutation()
-  async addMessage(@Args('messageData') messageData: MessageInput) {
-    const newMessage = this.messageService.addMessage(messageData);
+  @Mutation('postMessage')
+  async postMessage(@Args('messageData') messageData: MessageInput) {
+    const newMessage = await this.messageService.addMessage(messageData);
     this.pubSub.publish('messageAdded', { messageAdded: newMessage });
     return newMessage;
   }

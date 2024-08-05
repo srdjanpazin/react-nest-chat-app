@@ -1,0 +1,39 @@
+type User {
+	_id: String!
+	name: String
+}
+
+type Message {
+	id: Int!
+	chatId: Int!
+	senderId: String!
+	createdAt: String!
+	content: String!
+}
+
+type Chat {
+	uuid: Int
+	participants: [User!]!
+	name: String
+	lastMsg: String
+	lastMsgTime: Int!
+}
+
+type Query {
+	messages(chatId: Int!): [Message]
+	chats(userId: String!): [Chat]
+}
+
+type Mutation {
+	postMessage(messageData: MessageInput!): Message
+}
+
+type Subscription {
+	messageAdded: Message
+}
+
+input MessageInput {
+	chatId: Int!,
+	senderId: String!,
+	content: String!
+}
