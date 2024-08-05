@@ -9,11 +9,11 @@ type MessageBubbleProps = {
 export default function MessageBubble({ content, senderId }: MessageBubbleProps) {
 
 	const { userId } = useUserContext()!;
-	const className = userId === senderId ? 'msg-blue' : 'msg-grey';
+	const isCurrUserMsg = userId === senderId;
 
 	return (
-		<div className="message-row">
-			<div className={'message-bubble ' + className}>
+		<div className={'message-row ' + (isCurrUserMsg ? 'msg-right' : '')}>
+			<div className={'message-bubble ' + (isCurrUserMsg ? 'msg-blue' : 'msg-grey')}>
 				{content}
 			</div>
 		</div>
